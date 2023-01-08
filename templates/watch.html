@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="downloadBody">
+    {% if movie == "" %}
+    <h3 class="heading">No Movie Found</h3>
+
+    {% else %}
+    <h3 class="heading">{{movie.movie_title}}</h3>
+    <img class="image" src="{{movie.poster_url}}" alt="Movie Poster">
+    <span>
+        Rating: {{movie.movieRating}}<br>
+        Quality: {{movie.movieQuality}}<br>
+        File Size: {{movie.movieFileSize}}<br>
+        Language: {{movie.movieLanguage}}<br>
+        Released On: {{movie.movieReleaseDate}}<br>
+    </span>
+    <span>Story: {{movie.movieStory}}</span>
+    <div class="downloadLinks">
+        <a class="dLink" target="blank" href="{{movie.movieDownloadURL}}">Download</a>
+    </div>
+    <div class="howTo" style="width: 100%; text-align: center;  margin: 20px auto;">
+        <a href="https://youtube.com/shorts/AD6Pr9xaymc?feature=share" target="waoflix" style="border-bottom:2px solid white; text-decoration: none; color: white; padding: 5px 10px; font-size: 1.3rem;">How to Download Movies</a>
+    </div>
+</div>
+
+<form class="commentSection" action="/waoflix/comment/" method="post">
+    <h2 class="comheading">Write A Thought</h2>
+    <div class="comName">
+        <label for="comName">Name (required)</label>
+        <input type="text" name="comName" id="comName" maxlength="24" required>
+    </div>
+    {% csrf_token %}
+    <div class="comMail">
+        <label for="comMail">E-Mail (required)</label>
+        <input type="email" name="comMail" id="comMail" maxlength="85" required>
+    </div>
+    <div class="comMail">
+        <label for="commnetReason">Comment (required)</label>
+        <textarea name="commentReason" id="commnetReason" cols="20" rows="3" maxlength="490" required></textarea>
+    </div>
+    <button type="submit">Save</button>
+</form>
+<h2 class="comHead">Discussions</h2>
+<div class="allComments">
+    {% for comment in comments %}
+    <div>
+        <h3><img src="/static/user.jpg" alt="user">{{comment.fname}} : say</h3>
+        <p>{{comment.comReason}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
+{% endblock body %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="regformpage">
+        <form action="/users/register" method="post">
+            <h3 class="showMsg">
+                {{showMsg}}
+            </h3>
+            <h1>User's Sign-Up</h1>
+            <div>
+                <input type="text" name="urname" placeholder="Enter Username" maxlength="25" required>
+            </div>
+            <div>
+                <input type="email" name="urmail" placeholder="Enter a valid Mail" maxlength="75" required>
+            </div>
+            {% csrf_token %}
+            <div class="inp">
+                <input type="password" name="urpass" placeholder="Enter Password" maxlength="50" id="urpass" required>
+                <span id="showHideBtn">SHOW</span>
+            </div>
+            <div>
+                <input type="password" name="urconpass" placeholder="Enter Confirm Password" id="urconpass" maxlength="50" required>
+            </div>
+            <div class="linksforeg">
+                <button type="submit">Sign-Up</button>
+                <a href="/users/login">Log-In</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        let passwd = document.getElementById("urpass")
+        let conpasswd = document.getElementById("urconpass")
+        let showHideBtn = document.getElementById("showHideBtn")
+        showHideBtn.addEventListener("click",()=>{
+            if ((passwd.type === "text") && (conpasswd.type === "text")){
+                passwd.type = "password";
+                conpasswd.type = "password";
+                showHideBtn.innerText = "SHOW"
+            }
+            else{
+                passwd.type = "text"
+                showHideBtn.innerText = "HIDE"
+                conpasswd.type = "text"
+            }
+        })
+    </script>
+{% endblock body %}

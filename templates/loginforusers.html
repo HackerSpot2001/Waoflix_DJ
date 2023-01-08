@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="formbox">
+    <form action="/users/login" method="post">
+        <h3 class="showMsg">
+            {{showMsg}}
+        </h3>
+        <h1>User's Log-In</h1>
+        <div class="inp">
+            <input type="text" placeholder="Enter Username" name="ulname" maxlength="25" required>
+        </div>
+        {% csrf_token %}
+        <div class="inp">
+            <input type="password" placeholder="Enter Password" name="ulpass" id="password" maxlength="50" required>
+            <span id="showHideBtn">SHOW</span>
+        </div>
+        <div class="forgetlink">
+            <a href="/users/forget">Forget Password?</a>
+        </div>
+        <div class="linkBtns">
+            <button type="submit">Log-In</button>
+            <a href="/users/register">Sign-up Here</a>
+        </div>
+    </form>
+</div>
+<script>
+    let showHideBtn = document.getElementById("showHideBtn")
+    let password = document.getElementById("password")
+    showHideBtn.addEventListener("click",()=>{
+        if (password.type === "text"){
+            password.type = "password"
+            showHideBtn.innerText = "SHOW"
+        }else{
+            password.type = "text"
+            showHideBtn.innerText = "HIDE"
+        }
+    })
+</script>
+{% endblock body %}
