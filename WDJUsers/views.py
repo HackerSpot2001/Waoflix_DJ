@@ -23,14 +23,14 @@ def user_login(req):
             user = waoflixUsers.objects.get(userName=username)
             if(user and verify_hash(user.passWord,password)):
                 res = redirect('/users/dashboard')
-                res.set_cookie('cookieId',str(user.user_uuid_md5),max_age=3600,httponly=True,secure=True,path='/users/')
+                res.set_cookie('cookieId',str(user.user_uuid_md5),max_age=3600,httponly=True,path='/users/')
+                # res.set_cookie('cookieId',str(user.user_uuid_md5),max_age=3600,httponly=True,secure=True,path='/users/')
                 return res
 
         
             else:
                 data['showMsg'] = "Pls Check your Login Credentials!"
             
-                
         if (checkCookie(req)):
             return redirect('/users/dashboard')
     
@@ -79,7 +79,9 @@ def user_register(req):
                 
 
     except Exception as e:
+        print (e)
         data['showMsg'] = "Please check all valid fields!"
+
     return render(req,'registerforusers.html',context=data)
 
 

@@ -10,5 +10,5 @@ urlpatterns = [
     path('waoflix/',include('WDJApp.urls')),
     path('users/',include('WDJUsers.urls')),
     path('avatar/',include('WDJAvatar.urls')),
-    # path('temp-mail/',include("waoflixTempMail.urls")),
+    path('tempmail/',include("WDJTempMail.urls")),
 ]

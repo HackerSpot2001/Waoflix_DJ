@@ -60,3 +60,28 @@ class WDJMovies(db.Model):
     def __repr__(self):
         return f"{self.movie_id} - {self.slug}"
 
+
+class WDJTempMail(db.Model):
+    mail_id = db.BigAutoField(primary_key=True,serialize=True,unique=True)
+    email = db.EmailField(max_length=255,null=False)
+    domain = db.CharField(max_length=255,null=False,default="example.com")
+    password = db.CharField(max_length=100,null=False)
+    ip_addr = db.GenericIPAddressField(protocol='both',default='192.168.1.1')
+    date_created = db.DateTimeField(auto_now_add=True)
+
+
+
+class WDJTempMailContent(db.Model):
+    content_Id = db.BigAutoField
+    temp_mail = db.ForeignKey(WDJTempMail,on_delete=db.CASCADE)
+    mail_text = db.TextField()
+    mail_html = db.TextField()
+    mail_subject = db.TextField()
+    message_id = db.CharField(max_length=255)
+    from_side = db.JSONField(null=True)
+    attachments = db.JSONField(null=True)
+    cc_mails = db.JSONField(null=True)
+    bcc_mails = db.JSONField(null=True)
+    created_at = db.CharField(null=True,max_length=255)
+    msgDownUrl = db.CharField(null=False,max_length=255)
+    date_created = db.DateTimeField(auto_now_add=True)
