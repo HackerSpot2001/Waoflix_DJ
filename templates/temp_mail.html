@@ -18,11 +18,20 @@
 
     <script>
         var inp = document.getElementById('mail-input')
+        var url = "/tempmail/getmailcontent"
+        var jsondata = {'email':inp.value}
         const copyClipBoard = (e)=>{
-            navigator.clipboard.writeText(inp.value)
-            e.innerText = "Copied"
+            var clip_board = navigator.clipboard;
+            var inpval = inp.value 
+            if (clip_board === undefined){
+               alert("Unable to copy.! Please try again.")
+            }else{
+                navigator.clipboard.writeText(inpval)
+                    e.innerText = "Copied"
+            }
             setTimeout(() => {
                 e.innerText = "Copy"
+                getMailContent(url,jsondata)
             }, 3000);
         }
         function getMailContent(url,jsondata){
@@ -45,16 +54,13 @@
                 }
             })   
         }
-        url = "http://127.0.0.1:8000/tempmail/getmailcontent"
-        jsondata = {'email':inp.value}
-        setTimeout(() => {
-            getMailContent(url,jsondata)
-        }, 000);
+        // setTimeout(() => {
+        //     getMailContent(url,jsondata) 
+        // }, 000);
 
         function refresh(){
             getMailContent(url,jsondata)
         }
-
 
     </script>
 
