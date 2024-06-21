@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect
-from Modules.utils import data,generate_md5,checkSession
 from WDJApp.models import WDJLogin as waoflixLogin, WDJMovies as waoflixMovies, WDJComments as WaoFlixComments
-from django.db.models import Q
+from Modules.utils import data
+from django.contrib import auth as  authentication 
+from django.contrib.auth.decorators import login_required
+
+# from django.db.models import Q
+# from Modules.utils import data,generate_md5,checkSession
 
 
 # Waoflix Views
@@ -9,63 +13,70 @@ from django.db.models import Q
 # loginCreds.save()
 
 
-session_uuid = list(waoflixLogin.objects.filter(Q(sno__icontains='1')))[0]
-total_movies = waoflixMovies.objects.count()
+# session_uuid = list(waoflixLogin.objects.filter(Q(sno__icontains='1')))[0]
+# total_movies = waoflixMovies.objects.count()
 
 def home(req):
-    data["title"] = "Home"
-    pages = total_movies
-    limit = 20
-    if req.method == "GET":
-        try:
-            page = int(req.GET.get('page'))
-            if page < 1 : page = 1
-        except: page =1
+    try:
+        data["title"] = "Home"
+        pages = 10 # total_movies
+        limit = 20
+        page = int(req.GET.get('page',1))
+        page = int(req.GET.get('page',1))
+
+        if page < 1 : page = 1
         
         offset = (page - 1) * limit
         data["prev"] = str( int(page - 1))
         data["next"] = str(int(page+1))
         pages = int((pages/limit)+1)
         data["showmsg"] = "Latest Movies and Web-Series"
-        movies = waoflixMovies.objects.order_by('-movie_id').all()[offset:offset+limit:-1]
+        movies = waoflixMovies.objects.order_by('-movie_id').all()[ offset : offset+limit :-1]
         data["pagesText"] = f"{page} of {pages}"
-        
-    if req.method == "POST":
-        search = req.POST.get("query")
-        movies = waoflixMovies.objects.filter(Q(movie_title__icontains=search) or Q(movieStory__icontains=search))
-        data["prev"] = ""
-        data["next"] = ""
-        data["pagesText"] = ""
-        data["showmsg"] = "Search Results for: {}".format(search)
+        data['movies'] = list(reversed(movies))
 
-    data['movies'] = list(reversed(movies))
-    checkSession(req)
+    except:
+        data["prev"] = "1"
+        data["next"] = "1"
+        data['movies'] = []
+        data["pagesText"] = ""
+        data["showmsg"] = "There is some error"
+    
     return render(req,'index.html',context=data)
+
+    # checkSession(req)
+
 
 
 def login(req):
     data['title'] = "Login in Waoflix"
     if req.method == "GET":
-        if (checkSession(req)):
+        if ( req.user.is_authenticated ):
             return redirect('/waoflix/admin-dashboard')
 
+
     if req.method == "POST":
-        username = req.POST.get('username')
-        password = req.POST.get('password')
-        if ((username == session_uuid.userName ) and (password == session_uuid.passWord)):
-            req.session['sid'] = generate_md5(session_uuid.sess_uuid)
-            req.session.set_expiry(60*60*24)
-            checkSession(req=req)
+        username = req.POST.get('username',None)
+        password = req.POST.get('password',None)
+        print(username)
+        print(password)
+        if (username != None and password != None):
+            user = authentication.authenticate(req, username=username,password=password)
+            if (user is None): print("User not found.") 
+            authentication.login(req, user)
             return redirect('/waoflix/admin-dashboard')
+
+        else:
+            data['showMsg'] = "Invalid authentication"
+
     
-    checkSession(req=req)
     return render(req,'login.html',context=data)
     
 
-def upload_movie(req):
-    if (not checkSession(req)):
-        return redirect('/waoflix/login')
 
+
+@login_required(login_url='/waoflix/login',)
+def upload_movie(req):
     data['title'] = "Upload an Movie"
     if req.method == "GET":
         return render(req,'uploader.html',context=data)
@@ -95,11 +106,9 @@ def upload_movie(req):
         return render(req,'uploader.html',context=data)
 
 
+@login_required(login_url='/waoflix/login')
 def update_movie(req):
     data['title'] = "Update an Movie"
-    if (not checkSession(req)):
-        return redirect('/waoflix/login')
-
     try:
         if req.method == "POST":
             if (req.POST["movietitle"] != "") and (req.POST["rating"] != "") and (req.POST["quality"] != "") and (req.POST["fileSize"] != "") and (req.POST["language"] != "") and (req.POST["releasedate"] != "") and (req.POST["desc"] != "") and (req.POST["downloadUrl"] != "" ) and (req.POST["sno"] != "" ):
@@ -131,13 +140,11 @@ def update_movie(req):
     return render(req,'update.html',context=data)
 
 
+@login_required(login_url='/waoflix/login')
 def admin_dashboard(req):
-    if checkSession(req) == False:
-        return redirect("/waoflix/login")
-    else:
-        movies = waoflixMovies.objects.all()[total_movies-100:total_movies:-1]
-        data['movies'] = list(movies)
-        return render(req,'dashboard.html',context=data)
+    movies = waoflixMovies.objects.all()
+    data['movies'] = list(movies)
+    return render(req,'dashboard.html',context=data)
 
 
 def watch_movie(req,slug):
@@ -159,14 +166,11 @@ def watch(req):
 
 
 def logout(req):
-    if(checkSession(req)):
-        req.session['sid'] = None
-
+    authentication.logout(req)
     return redirect('/')
     
 
 def comments(req):
-    checkSession(req)
     if req.method == "POST":
         if ((req.POST['comName'] != "") and (req.POST['comMail'] != "") and (req.POST['commentReason'] != "") ):
             comm = WaoFlixComments(fname=str(req.POST.get("comName")),comMail=str(req.POST.get("comMail")),comReason=str(req.POST.get("commentReason")))

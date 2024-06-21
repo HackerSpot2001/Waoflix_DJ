@@ -1,0 +1,1 @@
+PORT=$1 sudo docker-compose -f ./docker-compose.yml  up --build

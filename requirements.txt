@@ -1,3 +1,4 @@
-cairosvg==2.6.0
-python_bcrypt==0.3.2
-requests==2.18.4
+CairoSVG==2.7.1
+Django==5.0.6
+Requests==2.32.3
+gunicorn

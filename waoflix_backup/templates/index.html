@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div
+    style="display: flex; width: 285px; margin: 40px auto;justify-content: space-between; align-items: center; border-radius: 15px; overflow: hidden;">
+    <a href="?page={{prev}}"
+        style="border:2px solid white;font-size:1.3rem; text-decoration: none; color: white; background: rgb(15, 15, 15);padding: 5px 15px;font-weight: 600; border-radius:15px;">Prev...</a>
+    <span style="color: white ; font-weight: 800; font-size: 1.2rem;"> {{pagesText}} </span>
+    <a href="?page={{next}}"
+        style="font-size:1.3rem;border:2px solid white; text-decoration: none; color: white; background: rgb(15, 15, 15);padding: 5px 15px;font-weight: 600;border-radius:15px;">Next</a>
+</div>
+<h1
+    style="color: white; width: 90%; margin: 10px auto;background: black; margin-bottom: 0;border-top: 2px solid white;padding: 10px 20px;padding-top: 20px; text-align: center;">
+    {{showmsg}}</h1>
+<div class="allMovies">
+    {% if movies|length == 0 %}
+    <h1 style="color: white;">No Data Found</h1>
+    {% else %}
+    {% for movie in movies %}
+
+    <a href="/waoflix/watch/{{movie.slug}}" class="movie"
+        style="background: url('{{movie.poster_url}}'); background-position: center; background-repeat: no-repeat; background-size: cover;">
+        <h3>{{movie.movie_title}}</h3>
+    </a>
+
+    {% endfor %}
+    {% endif %}
+
+</div>
+<div
+    style="display: flex; width: 285px; margin: 40px auto;justify-content: space-between; align-items: center; border-radius: 15px; overflow: hidden;">
+    <a href="?page={{prev}}"
+        style="border:2px solid white;font-size:1.3rem; text-decoration: none; color: white; background: rgb(15, 15, 15);padding: 5px 15px;font-weight: 600; border-radius:15px;">Prev...</a>
+    <span style="color: white ; font-weight: 800; font-size: 1.5rem;">{{pagesText}}</span>
+    <a href="?page={{next}}"
+        style="font-size:1.3rem;border:2px solid white; text-decoration: none; color: white; background: rgb(15, 15, 15);padding: 5px 15px;font-weight: 600;border-radius:15px;">Next</a>
+</div>
+{% endblock body %}

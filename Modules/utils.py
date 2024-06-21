@@ -1,11 +1,12 @@
+
 from .python_avatars import Avatar
 from cairosvg import svg2png
 from uuid import uuid4
 from hashlib import md5
-from WDJApp.models import WDJLogin as  waoflixLogin, WDJUsers as waoflixUsers
 from django.db.models import Q
-from bcrypt import gensalt,checkpw,hashpw
 from .mail import Email
+
+
 
 data = {
     "title":"Home",
@@ -13,7 +14,7 @@ data = {
     "logContent":"Login",
 }
 
-session_uuid = list(waoflixLogin.objects.filter(Q(sno__icontains='1')))[0]
+
 fileName = "static/avatar.svg"
 pngFile = "static/avatar.png"
 
@@ -65,57 +66,7 @@ def generate_uuid():
 def generate_md5(uuid:str):
     return md5(uuid.encode("utf-8")).hexdigest()
 
-def checkSession(req):
-    try:
-        session = req.session.get('sid')
-        # print(session_uuid.sess_uuid)
-        user_session = generate_md5(session_uuid.sess_uuid)
-        if (session != None):
-            if session == user_session:
-                data['logUrl'] = '/waoflix/logout'
-                data['logContent'] = 'Logout'
-                return True
 
-            else:
-                data['logUrl'] = '/waoflix/login'
-                data['logContent'] = 'Login'
-                return False
-
-        else:
-            data['logUrl'] = '/waoflix/login'
-            data['logContent'] = 'Login'
-            return False
-    except Exception as e:
-        print("Error: ",str(e))
-        return False
-
-def checkCookie(req):
-    try:
-        cookie = req.COOKIES.get('cookieId')
-        # cookie = "fbeb3298abb250fc7a3750d2ff542fdd"
-        print(cookie)
-        if (cookie != None):
-            user = waoflixUsers.objects.get(user_uuid_md5=cookie)
-            print(user)
-            return True
-        
-        else:
-            return None
-
-    except Exception as e:
-        print("Error: ",str(e))
-        return False
-
-def createHash(password):
-    hashValue = hashpw(str(password).encode("utf-8"),gensalt(12))
-    return hashValue.decode("utf-8")
-
-def verify_hash(hash_value,password):
-    if checkpw(password.encode("utf-8"),hashed_password=hash_value.encode("utf-8")):
-        return True
-
-    else:
-        return False
 
 def startMailServer(listener):
     mailServer = Email()

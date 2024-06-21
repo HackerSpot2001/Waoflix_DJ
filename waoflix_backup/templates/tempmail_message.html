@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="mailMsg">
+    {{subject}}
+    {{html|safe}}
+</div>
+
+{% endblock body %}

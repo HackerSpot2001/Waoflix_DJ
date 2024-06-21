@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block body %}
+<form action="/waoflix/upload_movie/" method="POST" class="uploadingForm">
+    <h1 style="text-align:center; color: white;font-family: sans-serif;border-bottom: 2px solid white; width: 276px;margin: 10px auto;"">Upload Movie</h1>
+    <span style="color: white; font-size: 1.1rem;">{{showMsg}}</span>
+    <div>
+        <input type="text" id="movietitle" placeholder="Movie Title" name="movietitle" required>
+    </div>
+    <div>
+        <input type="text" id="posterurl" placeholder="Poster Link" name="poster" required>
+    </div>
+    {% csrf_token %}
+    <div class="basic">
+        <input type="text" id="movierating" placeholder="Rating" name="rating" required>
+        <input type="text" id="moviequality"  placeholder="Quality" name="quality" required>
+    </div>
+    <div class="basic">
+        <input type="text" id="fileSize" placeholder="Movie Size" name="fileSize" required>
+        <input type="text" id="language"  placeholder="Movie Language" name="language" required>
+    </div>
+    <div>
+        <input type="date" id="releasedate" name="releasedate" required>
+    </div>
+    <div>
+        <input type="text" id="downloadUrl" placeholder="Download Link" name="downloadUrl" required>
+    </div>
+    <div>
+        <textarea name="desc" id="moviedesc" placeholder="Story" cols="30" rows="5" required></textarea>
+    </div>
+    <button type="submit">Upload</button>
+</form>
+{% endblock body %}
