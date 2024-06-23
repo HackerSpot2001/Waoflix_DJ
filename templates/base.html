@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="Xo1dGgcUFhcIH1OcVjlAm9RuL-0J4pI2xb5VoVNGqiM" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
     <title> {{ title }} | Waoflix is the easy and best website for downloading Movies and Web-Series</title>
 </head>
 <body>
     <nav id="navbar">
         <div id="logoWithBurgur">
             <div class="logo">
-                <a href="/"><img src="/static/20220303_211102.jpg" alt="site-logo"></a>
+                <a href="/"><img src="{% static "20220303_211102.jpg" %}" alt="site-logo"></a>
             </div>
             <div id="burgur">
                 <span id="first"></span>
@@ -24,7 +25,7 @@
         </div>
 
         <div id="search">
-            <a href="/users/login"><img src="/static/login.png" alt="login Image"> <h3>Users</h3></a>
+            <a href="/users/login"><img src="{% static "login.png" %}" alt="login Image"> <h3>Users</h3></a>
             <form action="/waoflix/" method="post">
                 <input type="text" name="query" placeholder="Search" required>
                 {% csrf_token %}
@@ -38,8 +39,8 @@
     
     <footer>
         <span>© 2022 waoflix, Inc. All Rights Reserved | <a href="/">waoflix.xyz </a>| <a href="{{logUrl}}">{{logContent}}</a> |<a href="/contact">Contact Us</a> </span>
-        <a href="https://www.instagram.com/sagar__abhishek/" target="waoflix"><img src="/static/instagram.png" alt="Instagram"></a>
-        <a href="https://github.com/hackerspot2001" target="waoflix"><img src="/static/github.png" alt="Github"></a>
+        <a href="https://www.instagram.com/sagar__abhishek/" target="waoflix"><img src="{% static "instagram.png" %}" alt="Instagram"></a>
+        <a href="https://github.com/hackerspot2001" target="waoflix"><img src="{% static "github.png" %}" alt="Github"></a>
     </footer>
 
     <script>

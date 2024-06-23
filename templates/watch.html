@@ -1,4 +1,6 @@
+
 {% extends 'base.html' %}
+{% load static %}
 {% block body %}
 <div class="downloadBody">
     {% if movie == "" %}
@@ -44,7 +46,7 @@
 <div class="allComments">
     {% for comment in comments %}
     <div>
-        <h3><img src="/static/user.jpg" alt="user">{{comment.fname}} : say</h3>
+        <h3><img src="{% static "user.jpg" %}" alt="user">{{comment.fname}} : say</h3>
         <p>{{comment.comReason}}</p>
     </div>
     {% endfor %}

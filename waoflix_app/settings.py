@@ -5,7 +5,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^=6$ihinp^5x95iku!j@xcc*^u0wa37f%y7*xbpjpgurpqg&du'
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ os.getenv('ALLOWED_HOSTS','127.0.0.1')]
+
+print("ALLOWED_HOSTS" )
+print(ALLOWED_HOSTS)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,9 +79,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR , "static"),
+    os.path.join(BASE_DIR, 'static')
 ]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR , "static"),
+# ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

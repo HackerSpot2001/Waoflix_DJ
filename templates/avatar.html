@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block body %}
+
 
 <h1 style="text-align:center; color: white;font-family: sans-serif;border-bottom: 2px solid white; width: 90%;max-width:700px;margin: 30px auto;padding:10px 0;margin-bottom:25px;font-size:1.8rem;font-weight:600;">Create Your Favourite Avatar</h1>
 <!-- <form method="POST"  id="avatarForm" onsubmit="javascript: captureAvatar(this); return false;"> -->
@@ -48,7 +50,7 @@
     </div>
     <div class="avatarImage">
         <div class="btns">
-            <a href="/static/avatar.svg" target="_blank" download> SVG File</a>
+            <a href="{% static "avatar.svg" %}" target="_blank" download> SVG File</a>
             <a href="/{{png}}" target="_blank" download> PNG File</a>
         </div>
         <img src="/{{png}}" alt="">

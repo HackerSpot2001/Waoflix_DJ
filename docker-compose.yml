@@ -6,6 +6,34 @@ services:
       dockerfile: ./Dockerfile
 
     restart: always
-    ports:
-      - 0.0.0.0:$PORT:8000
+    # ports:
+    #   - 0.0.0.0:$PORT:8000
     container_name: waoflix_app_container
+
+    volumes:
+      - static:/static
+
+    environment:
+      - ALLOWED_HOSTS=waoflixapp
+
+
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./nginx/Dockerfile
+
+    volumes:
+      - static:/static
+
+    ports:
+      - 0.0.0.0:$PORT:80
+
+    depends_on:
+      - waoflix_app
+
+
+
+
+volumes:
+  static:

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:ns2="http://design.blush" xmlns:xlink="http://www.w3.org/1999/xlink" width="264px" height="280px" viewBox="0 0 264 280" version="1.1">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="264px" height="280px" viewBox="0 0 264 280" version="1.1">
     <title id="transparent_Title">Avataaar/Default</title>
     <desc>Created with python_avatars</desc>
     <defs>
@@ -22,14 +22,16 @@
         </g>
         <g id="transparent_Clothing" transform="translate(0.000000, 170.000000)">
             
-        <g id="jedi_robe_Clothing/Jedi robe" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="jedi_robe_Robe" transform="translate(31.000000, 27.500000)">
-            <path d="M77.0002,1.8388 C77.0002,1.8388 100.4152,19.9298 125.0262,1.8388 L144.7322,1.8388 L146.6392,82.8388 L53.7902,82.8388 L56.4622,1.8388 L77.0002,1.8388 Z" id="jedi_robe_Fabric-Color" fill="#3C4F5C" ns2:color="Top-500" />
-            <path d="M144.732,1.8388 L145.05,15.3598 L82.694,82.8388 L59.513,82.8388 L134.365,1.8388 L144.732,1.8388 Z M145.3534,28.2147 L145.9284,52.6767 L118.0564,82.8387 L94.8764,82.8387 L145.3534,28.2147 Z M55.4976,31.0798 L83.4626,56.9218 L71.9076,69.4258 L54.7556,53.5748 L55.4976,31.0798 Z M68.9459,1.8391 L104.2319,34.4461 L92.6779,46.9491 L56.0899,13.1381 L56.4619,1.8391 L68.9459,1.8391 Z" id="jedi_robe_Combined-Shape" fill-opacity=".3" fill="#FFF" />
-            <path d="M0.0095,72.6474 L0.0005,73.8384 L0.0005,82.8384 L68.7465,82.8384 L68.7465,0.0004 C17.4125,0.0004 0.4205,47.3044 0.0095,72.6474" id="jedi_robe_Fill-14" fill="#282828" />
-            <path d="M61.0934,0.538 L61.0934,82.839 L68.7464,82.839 L68.7464,0 C66.0854,0 63.5354,0.185 61.0934,0.538" id="jedi_robe_Fill-17" fill="#070707" />
-            <path d="M202.0104,72.6474 L202.0204,73.8384 L202.0204,82.8384 L133.2744,82.8374 L133.2744,0.0004 C184.6074,0.0004 201.5994,47.3044 202.0104,72.6474" id="jedi_robe_Fill-20" fill="#282828" />
-            <path d="M140.8268,0.538 L140.8268,82.838 L133.2738,82.838 L133.2738,0 C135.8998,0 138.4168,0.185 140.8268,0.538" id="jedi_robe_Fill-23" fill="#070707" />
+        <defs>
+        <path d="M83,36.3476251 C83,52.6289957 105.161905,65.8276544 132.5,65.8276544 C159.838095,65.8276544 182,52.6289957 182,36.3476251 C182,34.9853134 181.844841,33.6445843 181.544472,32.3313638 C210.784239,41.4879251 232,68.792221 232,101.051724 L232,110 L32,110 L32,101.051724 C32,68.3970853 53.7386736,40.8197864 83.5337207,32.0021267 C83.1821692,33.4207025 83,34.871494 83,36.3476251 Z" id="shirt_scoop_neck_path-1" />
+    </defs>
+    <g id="shirt_scoop_neck_Clothing/Shirt-Scoop-Neck" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="shirt_scoop_neck_mask-2" fill="white">
+            <use xlink:href="#shirt_scoop_neck_path-1" />
+        </mask>
+        <use id="shirt_scoop_neck_Clothes" fill="#E6E6E6" xlink:href="#shirt_scoop_neck_path-1" />
+        <g id="shirt_scoop_neck_Fabric-Color" mask="url(#shirt_scoop_neck_mask-2)" fill="#3C4F5C">
+            <rect id="shirt_scoop_neck_🖍Color" x="0" y="0" width="264" height="110" />
         </g>
     </g>
 </g>
