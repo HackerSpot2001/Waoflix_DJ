@@ -15,6 +15,7 @@ services:
 
     environment:
       - ALLOWED_HOSTS=waoflixapp
+      - SECRET_KEY=${SECRETKEY:-"django-insecure-^=6$ihinp^5x95iku!j@xcc*^u0wa37f%y7*xbpjpgurpqg&du"}
 
 
 
